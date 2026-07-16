@@ -1,0 +1,2 @@
+
+REVOKE EXECUTE ON FUNCTION public.protect_permanent_admin() FROM PUBLIC, anon, authenticated;

@@ -1,0 +1,2 @@
+ALTER TABLE public.questions ADD COLUMN IF NOT EXISTS passage TEXT;
+ALTER TABLE public.questions ADD COLUMN IF NOT EXISTS language TEXT NOT NULL DEFAULT 'ar';

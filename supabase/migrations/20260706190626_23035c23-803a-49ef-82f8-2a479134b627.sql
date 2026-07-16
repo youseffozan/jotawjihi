@@ -1,0 +1,1 @@
+ALTER TABLE public.user_attempts DROP CONSTRAINT IF EXISTS user_attempts_score_valid;
