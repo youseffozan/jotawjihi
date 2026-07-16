@@ -7,17 +7,26 @@ export type LandingStats = {
 };
 
 export const getLandingStats = createServerFn({ method: "GET" }).handler(async (): Promise<LandingStats> => {
-  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  try {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
-  const [students, subjects, attempts] = await Promise.all([
-    supabaseAdmin.from("user_roles").select("*", { count: "exact", head: true }).eq("role", "student"),
-    supabaseAdmin.from("subjects").select("*", { count: "exact", head: true }),
-    supabaseAdmin.from("user_attempts").select("*", { count: "exact", head: true }),
-  ]);
+    const [students, subjects, attempts] = await Promise.all([
+      supabaseAdmin.from("user_roles").select("*", { count: "exact", head: true }).eq("role", "student"),
+      supabaseAdmin.from("subjects").select("*", { count: "exact", head: true }),
+      supabaseAdmin.from("user_attempts").select("*", { count: "exact", head: true }),
+    ]);
 
-  return {
-    activeStudents: students.count ?? 0,
-    totalExams: subjects.count ?? 0,
-    completedExams: attempts.count ?? 0,
-  };
+    return {
+      activeStudents: students.count ?? 0,
+      totalExams: subjects.count ?? 0,
+      completedExams: attempts.count ?? 0,
+    };
+  } catch (error) {
+    console.warn("Using dummy stats because Supabase is not configured:", error);
+    return {
+      activeStudents: 0,
+      totalExams: 0,
+      completedExams: 0,
+    };
+  }
 });
