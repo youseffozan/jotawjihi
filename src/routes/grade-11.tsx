@@ -1,41 +1,29 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
-import { ArrowLeft, BookOpen, PlayCircle } from "lucide-react";
+import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
 import { grade11Subjects } from "@/lib/exam-data";
-import { QuizEngine } from "@/components/QuizEngine";
-import { useLocalProgress } from "@/lib/local-progress";
+import { isSubjectAvailable, useSubjectStatuses } from "@/lib/available-subjects";
+import { SubjectCard } from "@/components/SubjectCard";
+import { ArrowLeft, BookOpen } from "lucide-react";
 
 export const Route = createFileRoute("/grade-11")({
   head: () => ({
     meta: [
       { title: "الأول ثانوي — جو توجيهي" },
-      { name: "description", content: "امتحانات محاكية لطلاب الأول ثانوي في الأردن." },
+      { name: "description", content: "امتحانات محاكية لطلاب الأول ثانوي في الأردن: الدين، تاريخ الأردن، الرياضيات، واللغة العربية." },
     ],
   }),
   component: Grade11Page,
 });
 
 function Grade11Page() {
-  const { progress } = useLocalProgress();
-  const [activeSubject, setActiveSubject] = useState<string | null>(null);
-
-  if (activeSubject) {
-    const subject = grade11Subjects.find((s) => s.id === activeSubject)!;
-    return (
-      <QuizEngine
-        subjectId={subject.id}
-        subjectName={subject.nameAr}
-        questions={subject.questions}
-        onExit={() => setActiveSubject(null)}
-      />
-    );
-  }
-
+  const statuses = useSubjectStatuses();
   return (
     <div className="min-h-screen bg-background">
+      <SiteHeader />
       <div className="mx-auto max-w-7xl px-6 py-12">
         <Link to="/" className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground">
-          <ArrowLeft className="h-4 w-4 transition-transform hover:-translate-x-1" /> العودة للرئيسية
+          <ArrowLeft className="h-4 w-4 transition-transform hover:-translate-x-1" /> العودة
         </Link>
         <div className="mt-6 animate-fade-up">
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-3 py-1 text-xs font-semibold text-primary">
@@ -45,47 +33,30 @@ function Grade11Page() {
             اختر المبحث الذي تريد التدرب عليه
           </h1>
           <p className="mt-3 max-w-2xl text-muted-foreground">
-            المواد الأساسية لطلاب الصف الحادي عشر. اختر المادة للبدء بامتحان.
+            4 مواد أساسية لطلاب الصف الحادي عشر. كل مادة تحتوي على امتحان محاكي مع تصحيح فوري وشرح للإجابات.
           </p>
         </div>
 
         <div className="mt-10 grid gap-5 sm:grid-cols-2">
-          {grade11Subjects.map((subject, idx) => {
-            const subjectProgress = progress.subjectProgress[subject.id];
-            return (
-              <button
-                key={subject.id}
-                onClick={() => setActiveSubject(subject.id)}
-                className="relative border border-border bg-card rounded-xl p-6 card-interactive text-right animate-fade-up"
-                style={{ animationDelay: `${idx * 100}ms` }}
-              >
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h3 className="text-xl font-bold">{subject.nameAr}</h3>
-                    {subjectProgress ? (
-                      <p className="text-sm text-muted-foreground mt-1">أفضل نتيجة: {subjectProgress.bestScore}%</p>
-                    ) : (
-                      <p className="text-sm text-muted-foreground mt-1">لم تحل هذا الامتحان بعد</p>
-                    )}
-                  </div>
-                  <PlayCircle className="w-8 h-8 text-primary" />
-                </div>
-                <div className="mt-4">
-                  <div className="w-full h-2 bg-secondary rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-primary rounded-full transition-all duration-500"
-                      style={{ width: `${subjectProgress ? Math.min(subjectProgress.bestScore, 100) : 0}%` }}
-                    />
-                  </div>
-                </div>
-                <div className="mt-6 w-full py-3 bg-primary text-primary-foreground font-medium rounded-lg hover:bg-primary/90 transition-colors text-center">
-                  ابدأ الامتحان الآن
-                </div>
-              </button>
-            );
-          })}
+          {grade11Subjects.map((s, i) => (
+            <SubjectCard
+              key={s.id}
+              id={s.id}
+              nameAr={s.nameAr}
+              nameEn={s.name}
+              icon={s.icon}
+              color={s.color}
+              questionsCount={s.questions.length}
+              available={isSubjectAvailable(s.id, statuses)}
+              index={i}
+              to="/exam/$subjectId"
+              params={{ subjectId: s.id }}
+            />
+          ))}
         </div>
       </div>
+      <SiteFooter />
     </div>
   );
 }
+

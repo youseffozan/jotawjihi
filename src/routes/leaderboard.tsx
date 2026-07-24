@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
-import { Trophy, Medal, Award, Loader2 } from "lucide-react";
+import { Trophy, Medal, Award, Loader2, Clock } from "lucide-react";
 import { getLeaderboard, type LeaderboardEntry } from "@/lib/leaderboard.functions";
 
 export const Route = createFileRoute("/leaderboard")({
@@ -35,6 +35,13 @@ function Leaderboard() {
     <div className="min-h-screen bg-background">
       <SiteHeader />
       <div className="mx-auto max-w-5xl px-6 py-12">
+        <div className="mb-8 rounded-3xl border border-amber-500/30 bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-transparent p-6 text-center">
+          <div className="mx-auto inline-flex items-center gap-2 rounded-full bg-amber-500/15 px-3 py-1 text-xs font-bold text-amber-700 dark:text-amber-400">
+            <Clock className="h-3.5 w-3.5" /> قريباً
+          </div>
+          <h2 className="mt-3 text-2xl font-black">لوحة الصدارة الرسمية قيد التحضير</h2>
+          <p className="mt-2 text-sm text-muted-foreground">سيتم إطلاق التصنيف الرسمي بين الطلبة قريباً. حالياً يمكنك مشاهدة معاينة أولية لنتائج المتدرّبين.</p>
+        </div>
 
         <div className="text-center">
           <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 text-white shadow-xl shadow-amber-500/30">

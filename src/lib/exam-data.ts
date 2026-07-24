@@ -293,7 +293,20 @@ export type DummyUser = {
   examsCompleted: number;
 };
 
-export const dummyUsers: DummyUser[] = [];
+export const dummyUsers: DummyUser[] = [
+  { id: "u1", name: "أحمد الخطيب", email: "ahmad@example.com", grade: "12", field: "medical", joined: "2025-09-12", subscription: "Premium", active: true, score: 187, examsCompleted: 24 },
+  { id: "u2", name: "ليلى العمري", email: "layla@example.com", grade: "12", field: "engineering", joined: "2025-08-03", subscription: "Full Year", active: true, score: 194, examsCompleted: 31 },
+  { id: "u3", name: "خالد الزعبي", email: "khaled@example.com", grade: "11", joined: "2025-10-20", subscription: "Free", active: true, score: 142, examsCompleted: 8 },
+  { id: "u4", name: "سارة المومني", email: "sara@example.com", grade: "12", field: "business", joined: "2025-07-15", subscription: "Premium", active: true, score: 178, examsCompleted: 19 },
+  { id: "u5", name: "يوسف حداد", email: "yousef@example.com", grade: "12", field: "law", joined: "2025-11-01", subscription: "Free", active: false, score: 120, examsCompleted: 5 },
+  { id: "u6", name: "رنا القيسي", email: "rana@example.com", grade: "12", field: "languages", joined: "2025-06-08", subscription: "Full Year", active: true, score: 189, examsCompleted: 27 },
+  { id: "u7", name: "عمر السرحان", email: "omar@example.com", grade: "11", joined: "2025-10-11", subscription: "Premium", active: true, score: 165, examsCompleted: 14 },
+  { id: "u8", name: "دانا الحاج", email: "dana@example.com", grade: "12", field: "science-tech", joined: "2025-09-28", subscription: "Free", active: true, score: 154, examsCompleted: 11 },
+  { id: "u9", name: "محمد الطراونة", email: "moh@example.com", grade: "12", field: "medical", joined: "2025-05-19", subscription: "Full Year", active: true, score: 196, examsCompleted: 40 },
+  { id: "u10", name: "نور العجارمة", email: "noor@example.com", grade: "11", joined: "2025-11-15", subscription: "Free", active: true, score: 131, examsCompleted: 6 },
+  { id: "u11", name: "فارس الكردي", email: "faris@example.com", grade: "12", field: "engineering", joined: "2025-08-22", subscription: "Premium", active: true, score: 182, examsCompleted: 22 },
+  { id: "u12", name: "هبة سليمان", email: "hiba@example.com", grade: "12", field: "law", joined: "2025-04-30", subscription: "Full Year", active: true, score: 191, examsCompleted: 34 },
+];
 
 export const activityData = [
   { day: "السبت", users: 210, exams: 145 },

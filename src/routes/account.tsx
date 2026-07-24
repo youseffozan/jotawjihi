@@ -26,18 +26,7 @@ type ExtendedProfile = {
   mobile: string | null;
   full_name: string | null;
   grade: "11" | "12" | null;
-  field: string | null;
-  is_public: boolean | null;
 };
-
-const FIELD_OPTIONS: Array<{ id: string; label: string }> = [
-  { id: "medical", label: "الحقل الصحّي / الطبي" },
-  { id: "engineering", label: "الحقل الهندسي" },
-  { id: "science-tech", label: "العلوم والتكنولوجيا" },
-  { id: "business", label: "الأعمال" },
-  { id: "languages", label: "اللغات والعلوم الاجتماعية" },
-  { id: "law", label: "القانون والعلوم الشرعية" },
-];
 
 function AccountPage() {
   const { user, loading, refreshProfile } = useAuth();
@@ -48,8 +37,6 @@ function AccountPage() {
   const [lastName, setLastName] = useState("");
   const [mobile, setMobile] = useState("");
   const [grade, setGrade] = useState<"11" | "12" | "">("");
-  const [field, setField] = useState("");
-  const [isPublic, setIsPublic] = useState(false);
   const [saving, setSaving] = useState(false);
 
   // Password change
@@ -68,7 +55,7 @@ function AccountPage() {
     (async () => {
       const { data } = await supabase
         .from("profiles")
-        .select("first_name, father_name, last_name, mobile, full_name, grade, field, is_public")
+        .select("first_name, father_name, last_name, mobile, full_name, grade")
         .eq("id", user.id)
         .maybeSingle<ExtendedProfile>();
       if (data) {
@@ -77,8 +64,6 @@ function AccountPage() {
         setLastName(data.last_name ?? "");
         setMobile(data.mobile ?? "");
         setGrade((data.grade as "11" | "12" | null) ?? "");
-        setField(data.field ?? "");
-        setIsPublic(Boolean(data.is_public));
         // Backfill from full_name if legacy account
         if (!data.first_name && !data.last_name && data.full_name) {
           const parts = data.full_name.trim().split(/\s+/);
@@ -93,7 +78,6 @@ function AccountPage() {
     e.preventDefault();
     if (!user) return;
     if (!grade) return toast.error("يرجى اختيار الصف الدراسي");
-    if (grade === "12" && !field) return toast.error("يرجى اختيار الحقل الأكاديمي");
     if (!firstName.trim()) return toast.error("يرجى إدخال الاسم الأول");
     if (mobile && !/^[0-9+\-\s]{7,20}$/.test(mobile.trim())) {
       return toast.error("رقم الجوال غير صالح");
@@ -113,8 +97,6 @@ function AccountPage() {
           mobile: mobile.trim() || null,
           full_name: composedFullName || null,
           grade,
-          field: grade === "12" ? field : null,
-          is_public: isPublic,
         })
         .eq("id", user.id);
       if (error) throw error;
@@ -212,7 +194,7 @@ function AccountPage() {
             <select
               id="grade"
               value={grade}
-              onChange={(e) => { const v = e.target.value as "11" | "12" | ""; setGrade(v); if (v !== "12") setField(""); }}
+              onChange={(e) => setGrade(e.target.value as "11" | "12" | "")}
               className="mt-1.5 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring"
               required
             >
@@ -221,42 +203,6 @@ function AccountPage() {
               <option value="12">الثاني ثانوي (التوجيهي)</option>
             </select>
             <p className="mt-2 text-xs text-muted-foreground">تغيير الصف يُحدّث الامتحانات المعروضة لك مباشرة.</p>
-          </div>
-
-          {grade === "12" && (
-            <div>
-              <Label htmlFor="field">الحقل الأكاديمي</Label>
-              <select
-                id="field"
-                value={field}
-                onChange={(e) => setField(e.target.value)}
-                className="mt-1.5 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring"
-                required
-              >
-                <option value="">اختر الحقل</option>
-                {FIELD_OPTIONS.map((f) => (
-                  <option key={f.id} value={f.id}>{f.label}</option>
-                ))}
-              </select>
-            </div>
-          )}
-
-          <div className="rounded-xl border border-border/60 bg-muted/20 p-4">
-            <label className="flex cursor-pointer items-start gap-3">
-              <input
-                type="checkbox"
-                checked={isPublic}
-                onChange={(e) => setIsPublic(e.target.checked)}
-                className="mt-1 h-4 w-4 rounded border-input"
-              />
-              <span className="flex-1">
-                <span className="block text-sm font-semibold">إظهار بروفايلي العام للآخرين</span>
-                <span className="mt-1 block text-xs text-muted-foreground">
-                  عند تفعيل هذا الخيار، يمكن للآخرين رؤية اسمك ونتائجك في البروفايل العام ولوحة الصدارة.
-                  بخلاف ذلك يظهر اسمك بشكل مختصر أو مجهول للحفاظ على خصوصيتك.
-                </span>
-              </span>
-            </label>
           </div>
 
           <div className="flex flex-wrap gap-3 pt-2">

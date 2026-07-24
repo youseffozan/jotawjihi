@@ -13,7 +13,7 @@ import { formatDisplayName } from "@/lib/display-name";
 export function SiteHeader() {
   const { theme, toggle } = useTheme();
   const [open, setOpen] = useState(false);
-  const { user, isAdmin, isTeacher, profile, signOut } = useAuth();
+  const { user, isAdmin, profile, signOut } = useAuth();
   const navigate = useNavigate();
 
   const displayName = formatDisplayName({
@@ -25,12 +25,10 @@ export function SiteHeader() {
 
   const links = [
     { to: "/", label: "الرئيسية" },
-    { to: "/feed", label: "المنشورات" },
     { to: "/leaderboard", label: "لوحة الصدارة" },
-    ...(isTeacher || isAdmin ? [{ to: "/teacher", label: "لوحة المعلم" }] : []),
+    { to: "/pricing", label: "الاشتراكات" },
     ...(isAdmin ? [{ to: "/admin", label: "لوحة الإدارة" }] : []),
   ] as const;
-
 
   const handleSignOut = async () => {
     await signOut();

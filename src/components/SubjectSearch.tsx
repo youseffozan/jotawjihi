@@ -92,14 +92,18 @@ export function SubjectSearch({
     onNavigate?.();
     const available = s.status === "available";
     if (!available) {
+      // Land on the field/grade page so the coming-soon state is visible.
       if (s.grade === "11") navigate({ to: "/grade-11" });
       else if (s.field) navigate({ to: "/grade-12/$field", params: { field: s.field } });
       else navigate({ to: "/grade-12" });
       return;
     }
-    navigate({ to: "/subject/$subjectId", params: { subjectId: s.id } });
+    if (s.grade === "11") {
+      navigate({ to: "/exam/$subjectId", params: { subjectId: s.id } });
+    } else if (s.field) {
+      navigate({ to: "/grade-12/$field/$subject", params: { field: s.field, subject: s.id } });
+    }
   };
-
 
   const onKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (!open || results.length === 0) return;

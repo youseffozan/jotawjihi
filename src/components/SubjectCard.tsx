@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { PlayCircle, Clock, Lock, Sparkles, RotateCcw } from "lucide-react";
+import { PlayCircle, Clock, Lock, Sparkles } from "lucide-react";
 
 type SubjectCardProps = {
   id: string;
@@ -12,13 +12,11 @@ type SubjectCardProps = {
   index?: number;
   to?: React.ComponentProps<typeof Link>["to"];
   params?: Record<string, string>;
-  bestScorePct?: number | null;
 };
 
 export function SubjectCard({
-  id, nameAr, nameEn, icon, color, questionsCount, available, index = 0, to, params, bestScorePct,
+  id, nameAr, nameEn, icon, color, questionsCount, available, index = 0, to, params,
 }: SubjectCardProps) {
-  const hasBest = available && typeof bestScorePct === "number" && bestScorePct > 0;
   const cardCls = [
     "card-interactive group relative isolate overflow-hidden rounded-2xl border p-6 animate-fade-up",
     available
@@ -72,16 +70,11 @@ export function SubjectCard({
               </span>
             )}
           </div>
-          {hasBest && (
-            <div className="mt-2 inline-flex items-center gap-1.5 rounded-md bg-primary/10 px-2 py-1 text-[11px] font-bold text-primary">
-              <RotateCcw className="h-3 w-3" /> أفضل نتيجة: {Math.round(bestScorePct!)}% — إعادة المحاولة
-            </div>
-          )}
         </div>
 
         {available ? (
-          <div className={`grid h-11 w-11 place-items-center rounded-full ${hasBest ? "bg-emerald-600" : "bg-primary"} text-primary-foreground shadow-lg shadow-primary/25 transition-transform duration-300 group-hover:scale-110 animate-pulse-ring`}>
-            {hasBest ? <RotateCcw className="h-5 w-5" /> : <PlayCircle className="h-5 w-5" />}
+          <div className="grid h-11 w-11 place-items-center rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/25 transition-transform duration-300 group-hover:scale-110 animate-pulse-ring">
+            <PlayCircle className="h-5 w-5" />
           </div>
         ) : (
           <div className="grid h-11 w-11 place-items-center rounded-full bg-muted text-muted-foreground">

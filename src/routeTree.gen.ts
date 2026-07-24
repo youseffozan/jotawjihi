@@ -9,34 +9,22 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TeacherRouteImport } from './routes/teacher'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as LeaderboardRouteImport } from './routes/leaderboard'
 import { Route as Grade11RouteImport } from './routes/grade-11'
-import { Route as FeedRouteImport } from './routes/feed'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AccountRouteImport } from './routes/account'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as Grade12IndexRouteImport } from './routes/grade-12.index'
-import { Route as SubjectSubjectIdRouteImport } from './routes/subject.$subjectId'
 import { Route as ProfileUserIdRouteImport } from './routes/profile.$userId'
 import { Route as Grade12FieldRouteImport } from './routes/grade-12.$field'
 import { Route as ExamSubjectIdRouteImport } from './routes/exam.$subjectId'
 import { Route as Grade12FieldIndexRouteImport } from './routes/grade-12.$field.index'
-import { Route as SubjectSubjectIdRandomRouteImport } from './routes/subject.$subjectId.random'
-import { Route as SubjectSubjectIdQuestionBanksRouteImport } from './routes/subject.$subjectId.question-banks'
-import { Route as SubjectSubjectIdMinisterialRouteImport } from './routes/subject.$subjectId.ministerial'
-import { Route as SubjectSubjectIdBanksRouteImport } from './routes/subject.$subjectId.banks'
 import { Route as Grade12FieldSubjectRouteImport } from './routes/grade-12.$field.$subject'
 
-const TeacherRoute = TeacherRouteImport.update({
-  id: '/teacher',
-  path: '/teacher',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -60,11 +48,6 @@ const LeaderboardRoute = LeaderboardRouteImport.update({
 const Grade11Route = Grade11RouteImport.update({
   id: '/grade-11',
   path: '/grade-11',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FeedRoute = FeedRouteImport.update({
-  id: '/feed',
-  path: '/feed',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -92,11 +75,6 @@ const Grade12IndexRoute = Grade12IndexRouteImport.update({
   path: '/grade-12/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SubjectSubjectIdRoute = SubjectSubjectIdRouteImport.update({
-  id: '/subject/$subjectId',
-  path: '/subject/$subjectId',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ProfileUserIdRoute = ProfileUserIdRouteImport.update({
   id: '/profile/$userId',
   path: '/profile/$userId',
@@ -117,28 +95,6 @@ const Grade12FieldIndexRoute = Grade12FieldIndexRouteImport.update({
   path: '/',
   getParentRoute: () => Grade12FieldRoute,
 } as any)
-const SubjectSubjectIdRandomRoute = SubjectSubjectIdRandomRouteImport.update({
-  id: '/random',
-  path: '/random',
-  getParentRoute: () => SubjectSubjectIdRoute,
-} as any)
-const SubjectSubjectIdQuestionBanksRoute =
-  SubjectSubjectIdQuestionBanksRouteImport.update({
-    id: '/question-banks',
-    path: '/question-banks',
-    getParentRoute: () => SubjectSubjectIdRoute,
-  } as any)
-const SubjectSubjectIdMinisterialRoute =
-  SubjectSubjectIdMinisterialRouteImport.update({
-    id: '/ministerial',
-    path: '/ministerial',
-    getParentRoute: () => SubjectSubjectIdRoute,
-  } as any)
-const SubjectSubjectIdBanksRoute = SubjectSubjectIdBanksRouteImport.update({
-  id: '/banks',
-  path: '/banks',
-  getParentRoute: () => SubjectSubjectIdRoute,
-} as any)
 const Grade12FieldSubjectRoute = Grade12FieldSubjectRouteImport.update({
   id: '/$subject',
   path: '/$subject',
@@ -150,23 +106,16 @@ export interface FileRoutesByFullPath {
   '/account': typeof AccountRoute
   '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
-  '/feed': typeof FeedRoute
   '/grade-11': typeof Grade11Route
   '/leaderboard': typeof LeaderboardRoute
   '/pricing': typeof PricingRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/teacher': typeof TeacherRoute
   '/exam/$subjectId': typeof ExamSubjectIdRoute
   '/grade-12/$field': typeof Grade12FieldRouteWithChildren
   '/profile/$userId': typeof ProfileUserIdRoute
-  '/subject/$subjectId': typeof SubjectSubjectIdRouteWithChildren
   '/grade-12/': typeof Grade12IndexRoute
   '/grade-12/$field/$subject': typeof Grade12FieldSubjectRoute
-  '/subject/$subjectId/banks': typeof SubjectSubjectIdBanksRoute
-  '/subject/$subjectId/ministerial': typeof SubjectSubjectIdMinisterialRoute
-  '/subject/$subjectId/question-banks': typeof SubjectSubjectIdQuestionBanksRoute
-  '/subject/$subjectId/random': typeof SubjectSubjectIdRandomRoute
   '/grade-12/$field/': typeof Grade12FieldIndexRoute
 }
 export interface FileRoutesByTo {
@@ -174,22 +123,15 @@ export interface FileRoutesByTo {
   '/account': typeof AccountRoute
   '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
-  '/feed': typeof FeedRoute
   '/grade-11': typeof Grade11Route
   '/leaderboard': typeof LeaderboardRoute
   '/pricing': typeof PricingRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/teacher': typeof TeacherRoute
   '/exam/$subjectId': typeof ExamSubjectIdRoute
   '/profile/$userId': typeof ProfileUserIdRoute
-  '/subject/$subjectId': typeof SubjectSubjectIdRouteWithChildren
   '/grade-12': typeof Grade12IndexRoute
   '/grade-12/$field/$subject': typeof Grade12FieldSubjectRoute
-  '/subject/$subjectId/banks': typeof SubjectSubjectIdBanksRoute
-  '/subject/$subjectId/ministerial': typeof SubjectSubjectIdMinisterialRoute
-  '/subject/$subjectId/question-banks': typeof SubjectSubjectIdQuestionBanksRoute
-  '/subject/$subjectId/random': typeof SubjectSubjectIdRandomRoute
   '/grade-12/$field': typeof Grade12FieldIndexRoute
 }
 export interface FileRoutesById {
@@ -198,23 +140,16 @@ export interface FileRoutesById {
   '/account': typeof AccountRoute
   '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
-  '/feed': typeof FeedRoute
   '/grade-11': typeof Grade11Route
   '/leaderboard': typeof LeaderboardRoute
   '/pricing': typeof PricingRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/teacher': typeof TeacherRoute
   '/exam/$subjectId': typeof ExamSubjectIdRoute
   '/grade-12/$field': typeof Grade12FieldRouteWithChildren
   '/profile/$userId': typeof ProfileUserIdRoute
-  '/subject/$subjectId': typeof SubjectSubjectIdRouteWithChildren
   '/grade-12/': typeof Grade12IndexRoute
   '/grade-12/$field/$subject': typeof Grade12FieldSubjectRoute
-  '/subject/$subjectId/banks': typeof SubjectSubjectIdBanksRoute
-  '/subject/$subjectId/ministerial': typeof SubjectSubjectIdMinisterialRoute
-  '/subject/$subjectId/question-banks': typeof SubjectSubjectIdQuestionBanksRoute
-  '/subject/$subjectId/random': typeof SubjectSubjectIdRandomRoute
   '/grade-12/$field/': typeof Grade12FieldIndexRoute
 }
 export interface FileRouteTypes {
@@ -224,23 +159,16 @@ export interface FileRouteTypes {
     | '/account'
     | '/admin'
     | '/auth'
-    | '/feed'
     | '/grade-11'
     | '/leaderboard'
     | '/pricing'
     | '/reset-password'
     | '/sitemap.xml'
-    | '/teacher'
     | '/exam/$subjectId'
     | '/grade-12/$field'
     | '/profile/$userId'
-    | '/subject/$subjectId'
     | '/grade-12/'
     | '/grade-12/$field/$subject'
-    | '/subject/$subjectId/banks'
-    | '/subject/$subjectId/ministerial'
-    | '/subject/$subjectId/question-banks'
-    | '/subject/$subjectId/random'
     | '/grade-12/$field/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -248,22 +176,15 @@ export interface FileRouteTypes {
     | '/account'
     | '/admin'
     | '/auth'
-    | '/feed'
     | '/grade-11'
     | '/leaderboard'
     | '/pricing'
     | '/reset-password'
     | '/sitemap.xml'
-    | '/teacher'
     | '/exam/$subjectId'
     | '/profile/$userId'
-    | '/subject/$subjectId'
     | '/grade-12'
     | '/grade-12/$field/$subject'
-    | '/subject/$subjectId/banks'
-    | '/subject/$subjectId/ministerial'
-    | '/subject/$subjectId/question-banks'
-    | '/subject/$subjectId/random'
     | '/grade-12/$field'
   id:
     | '__root__'
@@ -271,23 +192,16 @@ export interface FileRouteTypes {
     | '/account'
     | '/admin'
     | '/auth'
-    | '/feed'
     | '/grade-11'
     | '/leaderboard'
     | '/pricing'
     | '/reset-password'
     | '/sitemap.xml'
-    | '/teacher'
     | '/exam/$subjectId'
     | '/grade-12/$field'
     | '/profile/$userId'
-    | '/subject/$subjectId'
     | '/grade-12/'
     | '/grade-12/$field/$subject'
-    | '/subject/$subjectId/banks'
-    | '/subject/$subjectId/ministerial'
-    | '/subject/$subjectId/question-banks'
-    | '/subject/$subjectId/random'
     | '/grade-12/$field/'
   fileRoutesById: FileRoutesById
 }
@@ -296,29 +210,19 @@ export interface RootRouteChildren {
   AccountRoute: typeof AccountRoute
   AdminRoute: typeof AdminRoute
   AuthRoute: typeof AuthRoute
-  FeedRoute: typeof FeedRoute
   Grade11Route: typeof Grade11Route
   LeaderboardRoute: typeof LeaderboardRoute
   PricingRoute: typeof PricingRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
-  TeacherRoute: typeof TeacherRoute
   ExamSubjectIdRoute: typeof ExamSubjectIdRoute
   Grade12FieldRoute: typeof Grade12FieldRouteWithChildren
   ProfileUserIdRoute: typeof ProfileUserIdRoute
-  SubjectSubjectIdRoute: typeof SubjectSubjectIdRouteWithChildren
   Grade12IndexRoute: typeof Grade12IndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/teacher': {
-      id: '/teacher'
-      path: '/teacher'
-      fullPath: '/teacher'
-      preLoaderRoute: typeof TeacherRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -352,13 +256,6 @@ declare module '@tanstack/react-router' {
       path: '/grade-11'
       fullPath: '/grade-11'
       preLoaderRoute: typeof Grade11RouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/feed': {
-      id: '/feed'
-      path: '/feed'
-      fullPath: '/feed'
-      preLoaderRoute: typeof FeedRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -396,13 +293,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Grade12IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/subject/$subjectId': {
-      id: '/subject/$subjectId'
-      path: '/subject/$subjectId'
-      fullPath: '/subject/$subjectId'
-      preLoaderRoute: typeof SubjectSubjectIdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/profile/$userId': {
       id: '/profile/$userId'
       path: '/profile/$userId'
@@ -431,34 +321,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Grade12FieldIndexRouteImport
       parentRoute: typeof Grade12FieldRoute
     }
-    '/subject/$subjectId/random': {
-      id: '/subject/$subjectId/random'
-      path: '/random'
-      fullPath: '/subject/$subjectId/random'
-      preLoaderRoute: typeof SubjectSubjectIdRandomRouteImport
-      parentRoute: typeof SubjectSubjectIdRoute
-    }
-    '/subject/$subjectId/question-banks': {
-      id: '/subject/$subjectId/question-banks'
-      path: '/question-banks'
-      fullPath: '/subject/$subjectId/question-banks'
-      preLoaderRoute: typeof SubjectSubjectIdQuestionBanksRouteImport
-      parentRoute: typeof SubjectSubjectIdRoute
-    }
-    '/subject/$subjectId/ministerial': {
-      id: '/subject/$subjectId/ministerial'
-      path: '/ministerial'
-      fullPath: '/subject/$subjectId/ministerial'
-      preLoaderRoute: typeof SubjectSubjectIdMinisterialRouteImport
-      parentRoute: typeof SubjectSubjectIdRoute
-    }
-    '/subject/$subjectId/banks': {
-      id: '/subject/$subjectId/banks'
-      path: '/banks'
-      fullPath: '/subject/$subjectId/banks'
-      preLoaderRoute: typeof SubjectSubjectIdBanksRouteImport
-      parentRoute: typeof SubjectSubjectIdRoute
-    }
     '/grade-12/$field/$subject': {
       id: '/grade-12/$field/$subject'
       path: '/$subject'
@@ -483,39 +345,19 @@ const Grade12FieldRouteWithChildren = Grade12FieldRoute._addFileChildren(
   Grade12FieldRouteChildren,
 )
 
-interface SubjectSubjectIdRouteChildren {
-  SubjectSubjectIdBanksRoute: typeof SubjectSubjectIdBanksRoute
-  SubjectSubjectIdMinisterialRoute: typeof SubjectSubjectIdMinisterialRoute
-  SubjectSubjectIdQuestionBanksRoute: typeof SubjectSubjectIdQuestionBanksRoute
-  SubjectSubjectIdRandomRoute: typeof SubjectSubjectIdRandomRoute
-}
-
-const SubjectSubjectIdRouteChildren: SubjectSubjectIdRouteChildren = {
-  SubjectSubjectIdBanksRoute: SubjectSubjectIdBanksRoute,
-  SubjectSubjectIdMinisterialRoute: SubjectSubjectIdMinisterialRoute,
-  SubjectSubjectIdQuestionBanksRoute: SubjectSubjectIdQuestionBanksRoute,
-  SubjectSubjectIdRandomRoute: SubjectSubjectIdRandomRoute,
-}
-
-const SubjectSubjectIdRouteWithChildren =
-  SubjectSubjectIdRoute._addFileChildren(SubjectSubjectIdRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AccountRoute: AccountRoute,
   AdminRoute: AdminRoute,
   AuthRoute: AuthRoute,
-  FeedRoute: FeedRoute,
   Grade11Route: Grade11Route,
   LeaderboardRoute: LeaderboardRoute,
   PricingRoute: PricingRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
-  TeacherRoute: TeacherRoute,
   ExamSubjectIdRoute: ExamSubjectIdRoute,
   Grade12FieldRoute: Grade12FieldRouteWithChildren,
   ProfileUserIdRoute: ProfileUserIdRoute,
-  SubjectSubjectIdRoute: SubjectSubjectIdRouteWithChildren,
   Grade12IndexRoute: Grade12IndexRoute,
 }
 export const routeTree = rootRouteImport
